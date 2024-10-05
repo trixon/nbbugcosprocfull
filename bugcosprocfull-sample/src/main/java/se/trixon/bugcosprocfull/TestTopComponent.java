@@ -7,6 +7,7 @@ package se.trixon.bugcosprocfull;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
+import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 import org.openide.windows.TopComponent;
 
@@ -31,7 +32,7 @@ import org.openide.windows.TopComponent;
 )
 @Messages({
     "CTL_TestAction=Test",
-    "CTL_TestTopComponent=Test Window",
+    "CTL_TestTopComponent=Test CHANGING THIS DOES NOT ALWAYS APPLY, 888",
     "HINT_TestTopComponent=This is a Test window"
 })
 public final class TestTopComponent extends TopComponent {
@@ -41,6 +42,14 @@ public final class TestTopComponent extends TopComponent {
         setName(Bundle.CTL_TestTopComponent());
         setToolTipText(Bundle.HINT_TestTopComponent());
 
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+            System.out.println("CHANGE THIS TO AS AN INDICATOR OF SOME CHANGE, 888\n".repeat(5));
+        }).start();
     }
 
     /**
